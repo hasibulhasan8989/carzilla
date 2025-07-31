@@ -1,0 +1,178 @@
+[
+  {
+    "_id": "1",
+    "brand": "Toyota",
+    "category": "SUV",
+    "name": "Toyota RAV4 Hybrid",
+    "description": "A fuel-efficient and spacious hybrid SUV built for adventure.",
+    "price": 31999,
+    "transmission": "Automatic",
+    "fuelType": "Hybrid",
+    "rating": 4.8,
+    "stock": 12,
+    "colors": ["White", "Black", "Silver"],
+    "warranty": "3 years / 36,000 miles",
+    "deliveryTime": "2-4 weeks",
+    "features": ["Hybrid engine", "All-wheel drive", "Touchscreen infotainment"],
+    "image": "https://i.ibb.co/0yprdRD4/car6.jpg",
+    "images": [
+      "https://i.ibb.co/0yprdRD4/car6.jpg",
+      "https://i.ibb.co/xtNX7MBJ/car8.jpg",
+      "https://i.ibb.co/gByPVt0/car7.jpg"
+    ]
+  },
+  {
+    "_id": "2",
+    "brand": "Honda",
+    "category": "SUV",
+    "name": "Honda CR-V EX",
+    "description": "A reliable SUV with spacious seating and advanced safety features.",
+    "price": 29999,
+    "transmission": "Automatic",
+    "fuelType": "Petrol",
+    "rating": 4.7,
+    "stock": 8,
+    "colors": ["Red", "Black", "Blue"],
+    "warranty": "3 years / 36,000 miles",
+    "deliveryTime": "1-3 weeks",
+    "features": ["Honda Sensing", "Moonroof", "Apple CarPlay"],
+    "image": "https://i.ibb.co/WWMJn10X/car5.jpg",
+    "images": [
+      "https://i.ibb.co/WWMJn10X/car5.jpg",
+      "https://i.ibb.co/MyCsgwzB/car4.jpg",
+      "https://i.ibb.co/s9xfhynk/car3.jpg"
+    ]
+  },
+  {
+    "_id": "3",
+    "brand": "Hyundai",
+    "category": "Sedan",
+    "name": "Hyundai Elantra 2024",
+    "description": "A sleek, modern sedan with great fuel economy and tech features.",
+    "price": 21499,
+    "transmission": "Automatic",
+    "fuelType": "Petrol",
+    "rating": 4.6,
+    "stock": 15,
+    "colors": ["White", "Gray", "Blue"],
+    "warranty": "5 years / 60,000 miles",
+    "deliveryTime": "2-5 weeks",
+    "features": ["Wireless charging", "Smart cruise control", "LED headlights"],
+    "image": "https://i.ibb.co/MyCsgwzB/car4.jpg",
+    "images": [
+      "https://i.ibb.co/MyCsgwzB/car4.jpg",
+      "https://i.ibb.co/qMCrCyQ6/car2.jpg",
+      "https://i.ibb.co/fYDnvZSj/car1.jpg"
+    ]
+  },
+  {
+    "_id": "4",
+    "brand": "Toyota",
+    "category": "Sedan",
+    "name": "Toyota Camry SE",
+    "description": "A midsize sedan offering power, comfort, and premium interior.",
+    "price": 25999,
+    "transmission": "Automatic",
+    "fuelType": "Petrol",
+    "rating": 4.7,
+    "stock": 10,
+    "colors": ["Black", "Silver", "White"],
+    "warranty": "3 years / 36,000 miles",
+    "deliveryTime": "1-2 weeks",
+    "features": ["Sport-tuned suspension", "Leather-trimmed seats", "Blind Spot Monitor"],
+    "image": "https://i.ibb.co/s9xfhynk/car3.jpg",
+    "images": [
+      "https://i.ibb.co/s9xfhynk/car3.jpg",
+      "https://i.ibb.co/rR6F63vm/car9.jpg",
+      "https://i.ibb.co/xtNX7MBJ/car8.jpg"
+    ]
+  },
+  {
+    "_id": "5",
+    "brand": "Mazda",
+    "category": "Sports",
+    "name": "Mazda MX-5 Miata",
+    "description": "Lightweight, rear-wheel-drive roadster with pure driving thrill.",
+    "price": 28999,
+    "transmission": "Manual",
+    "fuelType": "Petrol",
+    "rating": 4.9,
+    "stock": 5,
+    "colors": ["Red", "White", "Black"],
+    "warranty": "3 years / 36,000 miles",
+    "deliveryTime": "2-3 weeks",
+    "features": ["Manual transmission", "Convertible top", "Sport-tuned chassis"],
+    "image": "https://i.ibb.co/qMCrCyQ6/car2.jpg",
+    "images": [
+      "https://i.ibb.co/qMCrCyQ6/car2.jpg",
+      "https://i.ibb.co/fYDnvZSj/car1.jpg",
+      "https://i.ibb.co/MyCsgwzB/car4.jpg"
+    ]
+  },
+  {
+    "_id": "6",
+    "brand": "Ford",
+    "category": "Sports",
+    "name": "Ford Mustang GT",
+    "description": "Iconic American muscle car with thrilling V8 performance.",
+    "price": 43999,
+    "transmission": "Manual",
+    "fuelType": "Petrol",
+    "rating": 4.8,
+    "stock": 7,
+    "colors": ["Yellow", "Black", "Red"],
+    "warranty": "3 years / 36,000 miles",
+    "deliveryTime": "1-4 weeks",
+    "features": ["5.0L V8 engine", "Track Apps", "Launch Control"],
+    "image": "https://i.ibb.co/fYDnvZSj/car1.jpg",
+    "images": [
+      "https://i.ibb.co/fYDnvZSj/car1.jpg",
+      "https://i.ibb.co/qMCrCyQ6/car2.jpg",
+      "https://i.ibb.co/MyCsgwzB/car4.jpg"
+    ]
+  },
+  {
+    "_id": "7",
+    "brand": "Tesla",
+    "category": "Electric",
+    "name": "Tesla Model 3",
+    "description": "Stylish electric sedan with autopilot and fast acceleration.",
+    "price": 37999,
+    "transmission": "Automatic",
+    "fuelType": "Electric",
+    "rating": 4.9,
+    "stock": 9,
+    "colors": ["White", "Black", "Blue"],
+    "warranty": "4 years / 50,000 miles",
+    "deliveryTime": "3-6 weeks",
+    "features": ["Autopilot", "Over-the-air updates", "330-mile range"],
+    "image": "https://i.ibb.co/rR6F63vm/car9.jpg",
+    "images": [
+      "https://i.ibb.co/rR6F63vm/car9.jpg",
+      "https://i.ibb.co/xtNX7MBJ/car8.jpg",
+      "https://i.ibb.co/gByPVt0/car7.jpg"
+    ]
+  },
+  {
+    "_id": "8",
+    "brand": "Hyundai",
+    "category": "Electric",
+    "name": "Hyundai Ioniq 5",
+    "description": "Futuristic EV with ultra-fast charging and bold design.",
+    "price": 41999,
+    "transmission": "Automatic",
+    "fuelType": "Electric",
+    "rating": 4.8,
+    "stock": 6,
+    "colors": ["Gray", "White", "Black"],
+    "warranty": "5 years / 60,000 miles",
+    "deliveryTime": "2-5 weeks",
+    "features": ["Ultra-fast charging", "Digital dash", "Spacious interior"],
+    "image": "https://i.ibb.co/xtNX7MBJ/car8.jpg",
+    "images": [
+      "https://i.ibb.co/xtNX7MBJ/car8.jpg",
+      "https://i.ibb.co/rR6F63vm/car9.jpg",
+      "https://i.ibb.co/gByPVt0/car7.jpg"
+    ]
+  }
+]

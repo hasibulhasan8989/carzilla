@@ -11,6 +11,8 @@ import { useEffect, useState } from "react";
 
 const CartSection = ({ id }) => {
 
+  
+
   const [product,setProduct]=useState({})
   const navigate = useNavigate();
   const axiosPublic = useAxiosPublic();
@@ -21,10 +23,9 @@ const CartSection = ({ id }) => {
   useEffect(()=>{
     axiosPublic.get(`/products/${id}`)
      .then(res=>{
-      setProduct(res.data)
-     
+      setProduct(res.data)    
      })
-  },[])
+  },[axiosPublic,id])
   
 
  
@@ -57,7 +58,10 @@ const CartSection = ({ id }) => {
       const cartItem = {
         email: user.email,
         item: id,
+
       };
+
+      console.log(cartItem)
 
       axiosPublic.post("/cart", cartItem).then((res) => {
         console.log(res.data);

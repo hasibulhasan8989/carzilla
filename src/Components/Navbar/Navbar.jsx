@@ -3,9 +3,12 @@ import { FaShoppingCart } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
 import { BsCart4 } from "react-icons/bs";
 import { Link, NavLink } from "react-router-dom";
-import logo from "../../assets/logo/logo-removebg-preview.png"
+import logo from "../../assets/logo/logo-removebg-preview.png";
+import useAuth from "../../Hooks/useAuth";
 
 const Navbar = () => {
+  const { user, signOutUser } = useAuth();
+  
   const list = (
     <>
       <li>
@@ -13,16 +16,17 @@ const Navbar = () => {
       </li>
 
       <li>
-        <NavLink to={'/shop'}>Shop</NavLink>
+        <NavLink to={"/shop"}>Shop</NavLink>
       </li>
       <li>
-        <NavLink to={'/about'}>About</NavLink>
+        <NavLink to={"/about"}>About</NavLink>
       </li>
       <li>
-        <NavLink to={'/contact'}>Contact</NavLink>
+        <NavLink to={"/contact"}>Contact</NavLink>
       </li>
     </>
   );
+  
   return (
     <div className="navbar bg-base-100 shadow-sm">
       <div className="navbar-start">
@@ -53,7 +57,9 @@ const Navbar = () => {
         </div>
         <div className="flex gap-1 items-center">
           <img className="w-12" src={logo} alt="" />
-          <Link to={'/'} className="font-bold text-3xl ">CarZilla</Link>
+          <Link to={"/"} className="font-bold text-3xl ">
+            CarZilla
+          </Link>
         </div>
       </div>
       <div className="navbar-center hidden lg:flex">
@@ -65,10 +71,31 @@ const Navbar = () => {
         className="navbar-end gap-6 lg:gap-10 mr-4 lg:mr-12 
       "
       >
-        
         <BsCart4 size={25}></BsCart4>
-        <CgProfile size={25}></CgProfile>
-        <Link to={'/login'} className="font-bold">Login</Link>
+        {user ? (
+          <>
+            {user.photoURL ? (
+              <img
+                title={user.displayName}
+                className="w-10 h-10 rounded-full avatar cursor-pointer  border-gray-500"
+                src={user.photoURL}
+                alt={user.displayName || "User"}
+              />
+            ) : (
+              <CgProfile size={25} />
+            )}
+            <button   onClick={() => signOutUser()} className="font-bold cursor-pointer">
+              Logout
+            </button>
+          </>
+        ) : (
+          <>
+            <CgProfile size={25}></CgProfile>{" "}
+            <Link to={"/login"} className="font-bold">
+              Login
+            </Link>
+          </>
+        )}
       </div>
     </div>
   );

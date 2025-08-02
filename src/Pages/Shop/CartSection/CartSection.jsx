@@ -1,11 +1,33 @@
-import GetCar from "../../../Components/GetCar";
+
 import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css";
 import { FaCar, FaGasPump, FaCogs, FaShieldAlt, FaTruck } from "react-icons/fa";
+import useAuth from "../../../Hooks/useAuth";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
+import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+import toast from "react-hot-toast";
+import { useEffect, useState } from "react";
 
 const CartSection = ({ id }) => {
-  const { products } = GetCar();
-  const product = products.find((product) => product._id === id || {});
+
+  const [product,setProduct]=useState({})
+  const navigate = useNavigate();
+  const axiosPublic = useAxiosPublic();
+  const { user } = useAuth();
+ 
+
+  
+  useEffect(()=>{
+    axiosPublic.get(`/products/${id}`)
+     .then(res=>{
+      setProduct(res.data)
+     
+     })
+  },[])
+  
+
+ 
 
   const images = [
     {
@@ -14,19 +36,99 @@ const CartSection = ({ id }) => {
     },
   ];
 
-  // const images = product?.images?.map(item => ({
-  //     original: item,
-  //     thumbnail: item
-  //   }))
+  const handleAddCart = () => {
+    if (!user) {
+      Swal.fire({
+        title: "Login Required!",
+        text: "Please log in to continue. You must be signed in to add items to your cart.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, take me to login",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/login");
+        }
+      });
+    }
 
-      
+    if (user) {
+      const cartItem = {
+        email: user.email,
+        item: id,
+      };
+
+      axiosPublic.post("/cart", cartItem).then((res) => {
+        console.log(res.data);
+        if (res.data.insertedId) {
+          toast.success("🛒 Added to Cart!", {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            theme: "colored",
+          });
+        }
+        if (res.data.exist) {
+          toast("⚠️ Item already in cart!", {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            theme: "colored",
+          });
+        }
+      });
+    }
+  };
+
+  const handleBuyNow = () => {
+    if (!user) {
+      Swal.fire({
+        title: "Please Log In to Purchase!",
+        text: "You need to sign in before making a purchase.",
+        icon: "info",
+        showCancelButton: true,
+        confirmButtonColor: "#f75d34", // your theme color
+        cancelButtonColor: "#6c757d", // grey/cancel color
+        confirmButtonText: "Log In Now",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/login");
+        }
+      });
+    }
+  };
+
+  const handleBookTestDerive = () => {
+    if (!user) {
+      Swal.fire({
+        title: "Login Needed to Book Test Drive",
+        text: "Please log in to schedule a test drive for this vehicle.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#00b894", // teal or success-like color
+        cancelButtonColor: "#d63031", // red for cancel
+        confirmButtonText: "Log In to Continue",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/login");
+        }
+      });
+    }
+  };
 
   return (
     <div className="bg-gradient-to-br from-white to-gray-50 p-10 rounded-lg shadow-2xl">
       <div className="flex flex-col md:flex-row justify-center gap-16">
         {/* Image Gallery */}
         <div className="md:w-[600px] w-full">
-        <ImageGallery
+          <ImageGallery
             thumbnailPosition="bottom"
             showPlayButton={false}
             items={images}
@@ -49,7 +151,9 @@ const CartSection = ({ id }) => {
             </span>
           </p>
 
-          <p className="text-gray-600 leading-relaxed">{product?.description}</p>
+          <p className="text-gray-600 leading-relaxed">
+            {product?.description}
+          </p>
 
           {/* Details */}
           <div className="space-y-3">
@@ -97,26 +201,37 @@ const CartSection = ({ id }) => {
           <div className="pt-3">
             <p className="text-lg font-semibold">🔧 Features:</p>
             <div className="flex flex-wrap gap-3 mt-2">
-              {product?.features.map((feature) => (
+              {
+                product?.features?.map((feature) => (
                 <span
                   key={feature}
                   className="bg-[#f75d34]/10 text-[#f75d34] px-3 py-1 rounded-full text-sm font-medium"
                 >
                   {feature}
                 </span>
-              ))}
+              ))
+              }
             </div>
           </div>
 
           {/* Action Buttons */}
           <div className="flex flex-wrap gap-4 pt-6">
-            <button className="bg-[#f75d34] cursor-pointer text-white px-6 py-2 rounded-lg hover:bg-[#d84c2d] transition duration-300">
+            <button
+              onClick={handleAddCart}
+              className="bg-[#f75d34] cursor-pointer text-white px-6 py-2 rounded-lg hover:bg-[#d84c2d] transition duration-300"
+            >
               🛒 Add To Cart
             </button>
-            <button className="bg-[#333] cursor-pointer text-white px-6 py-2 rounded-lg hover:bg-black transition duration-300">
+            <button
+              onClick={handleBuyNow}
+              className="bg-[#333] cursor-pointer text-white px-6 py-2 rounded-lg hover:bg-black transition duration-300"
+            >
               💳 Buy Now
             </button>
-            <button className="border cursor-pointer border-[#f75d34] text-[#f75d34] px-6 py-2 rounded-lg hover:bg-[#f75d34] hover:text-white transition duration-300">
+            <button
+              onClick={handleBookTestDerive}
+              className="border cursor-pointer border-[#f75d34] text-[#f75d34] px-6 py-2 rounded-lg hover:bg-[#f75d34] hover:text-white transition duration-300"
+            >
               🚘 Book a Test Drive
             </button>
           </div>
@@ -128,7 +243,9 @@ const CartSection = ({ id }) => {
               <p className="italic text-gray-700">
                 “Amazing performance and sleek design. Totally worth the price!”
               </p>
-              <p className="text-sm text-gray-500 mt-1">– John D., Verified Buyer</p>
+              <p className="text-sm text-gray-500 mt-1">
+                – John D., Verified Buyer
+              </p>
             </div>
           </div>
         </div>

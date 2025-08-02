@@ -1,6 +1,49 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import useAuth from "../../Hooks/useAuth";
 
 const Register = () => {
+  const [passError, setPassError] = useState("");
+  const { updateUser, signUp ,setUser,user } = useAuth();
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const name = form.name.value;
+    const photo = form.photo.value;
+    const email = form.email.value;
+    const password = form.password.value;
+
+    if (!/^.{6,}$/.test(password)) {
+      return setPassError("Password must be at least 6 characters long.");
+    }
+    if (!/[A-Z]/.test(password)) {
+      return setPassError(
+        " Password must contain at least one uppercase letter."
+      );
+    }
+    if (!/[a-z]/.test(password)) {
+      return setPassError(
+        " Password must contain at least one lowercase letter."
+      );
+    }
+
+    try {
+      await signUp(email, password);
+      await updateUser(name, photo);
+      setUser({ ...user, displayName: name, photoURL: photo });
+
+      setPassError("");
+      form.reset();
+    } catch (error) {
+      console.log(error);
+    }
+
+    setPassError("");
+
+    console.log(name, photo, email, password);
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-100 via-white to-orange-200 text-gray-900 px-4">
       <div className="max-w-4xl w-full bg-white shadow-2xl rounded-2xl flex flex-col lg:flex-row overflow-hidden">
@@ -17,27 +60,32 @@ const Register = () => {
             Register to join the CarZilla community
           </p>
 
-          <form className="space-y-4">
+          <form onSubmit={handleRegister} className="space-y-4">
             <input
               type="text"
               placeholder="Full Name"
+              name="name"
               className="w-full px-5 py-3 border border-gray-300 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#f75d34]"
             />
             <input
               type="email"
+              name="email"
               placeholder="Email Address"
               className="w-full px-5 py-3 border border-gray-300 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#f75d34]"
             />
             <input
               type="url"
+              name="photo"
               placeholder="Display Photo URL"
               className="w-full px-5 py-3 border border-gray-300 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#f75d34]"
             />
             <input
               type="password"
+              name="password"
               placeholder="Password"
               className="w-full px-5 py-3 border border-gray-300 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#f75d34]"
             />
+            {passError && <p className="text-sm text-red-600">{passError}</p>}
 
             <button
               type="submit"

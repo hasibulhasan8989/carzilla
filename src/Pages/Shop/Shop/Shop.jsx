@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import GetCar from "../../../Components/GetCar";
 import ProductCard from "../../../Components/ProductCard/ProductCard";
 import CustomerSupport from "../../../Shared/CustomerSupport/CustomerSupport";
@@ -5,6 +6,9 @@ import SectionBanner from "../../../Shared/SectionBanner/SectionBanner";
 
 
 const Shop = () => {
+    useEffect(()=>{
+        window.scrollTo(0,0)
+      },[])
   
     const {products}=GetCar()
     

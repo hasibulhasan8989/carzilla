@@ -5,6 +5,8 @@ import Shop from "../Pages/Shop/Shop/Shop";
 import ViewDetails from "../Pages/ViewDetails/ViewDetails";
 import Contact from "../Pages/Contact/Contact/Contact";
 import About from "../Pages/About/About";
+import Login from "../Pages/Login/Login";
+import Register from "../Pages/Register/Register";
 
 const router=createBrowserRouter([
     {
@@ -20,7 +22,7 @@ const router=createBrowserRouter([
                 element:<Shop></Shop>
             },
             {
-                path:'/details/:id',
+                path:'/details/:category/:id',
                 element:<ViewDetails></ViewDetails>
             },
             {
@@ -30,6 +32,14 @@ const router=createBrowserRouter([
             {
                 path:'/about',
                 element:<About></About>
+            },
+            {
+                path:'/login',
+                element:<Login></Login>
+            },
+            {
+                path:'/register',
+                element:<Register></Register>
             },
 
         ]

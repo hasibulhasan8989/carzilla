@@ -31,7 +31,7 @@ const ProductCard = ({product}) => {
   {/* Image */}
   <figure className="relative">
     <img
-      className="w-full h-52 object-cover"
+      className="w-full h-40 md:h-52 object-cover"
       src={image}
       alt={name}
     />
@@ -55,7 +55,7 @@ const ProductCard = ({product}) => {
     
 
     {/* Button */}
-    <Link to={`/details/${_id}`}>
+    <Link to={`/details/${category}/${_id}`}>
       <Button text={'View Details'}></Button>
     </Link>
   </div>

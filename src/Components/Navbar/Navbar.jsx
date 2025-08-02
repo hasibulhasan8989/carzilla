@@ -65,9 +65,10 @@ const Navbar = () => {
         className="navbar-end gap-6 lg:gap-10 mr-4 lg:mr-12 
       "
       >
-        <CiHeart size={28}></CiHeart>
+        
         <BsCart4 size={25}></BsCart4>
         <CgProfile size={25}></CgProfile>
+        <Link to={'/login'} className="font-bold">Login</Link>
       </div>
     </div>
   );

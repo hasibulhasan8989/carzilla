@@ -76,16 +76,12 @@
     "fuelType": "Petrol",
     "rating": 4.7,
     "stock": 10,
-    "colors": ["Black", "Silver", "White"],
+    
     "warranty": "3 years / 36,000 miles",
     "deliveryTime": "1-2 weeks",
     "features": ["Sport-tuned suspension", "Leather-trimmed seats", "Blind Spot Monitor"],
-    "image": "https://i.ibb.co/s9xfhynk/car3.jpg",
-    "images": [
-      "https://i.ibb.co/s9xfhynk/car3.jpg",
-      "https://i.ibb.co/rR6F63vm/car9.jpg",
-      "https://i.ibb.co/xtNX7MBJ/car8.jpg"
-    ]
+    "image": "https://i.ibb.co/s9xfhynk/car3.jpg"
+    
   },
   {
     "_id": "5",

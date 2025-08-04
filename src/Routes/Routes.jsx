@@ -7,6 +7,8 @@ import Contact from "../Pages/Contact/Contact/Contact";
 import About from "../Pages/About/About";
 import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
+import Cart from "../Pages/Cart/Cart/Cart";
+import Checkout from "../Pages/Checkout/Checkout";
 
 const router=createBrowserRouter([
     {
@@ -40,6 +42,14 @@ const router=createBrowserRouter([
             {
                 path:'/register',
                 element:<Register></Register>
+            },
+            {
+                path:'/cart',
+                element:<Cart></Cart>
+            },
+            {
+                path:'/checkout',
+                element:<Checkout></Checkout>
             },
 
         ]

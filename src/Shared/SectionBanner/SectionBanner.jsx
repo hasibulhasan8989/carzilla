@@ -1,6 +1,6 @@
 const SectionBanner = ({ text }) => {
   return (
-    <div className="relative  min-h-[150px] md:min-h-[250px]  w-full overflow-hidden mb-16 bg-gradient-to-r from-[#f75d34] via-[#fc8f4c] to-[#f75d34] text-white">
+    <div className="relative  min-h-[150px] md:min-h-[250px]  w-full overflow-hidden mb-12 bg-gradient-to-r from-[#f75d34] via-[#fc8f4c] to-[#f75d34] text-white">
      
       <div className="absolute w-20 md:w-20 h-20 md:h-20 bg-white opacity-10 rounded-full top-10 left-10 animate-bounce"></div>
       <div className="absolute w-24 h-24 bg-white opacity-10 rounded-full bottom-10 right-10 animate-pulse"></div>

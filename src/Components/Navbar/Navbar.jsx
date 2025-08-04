@@ -71,7 +71,7 @@ const Navbar = () => {
         className="navbar-end gap-6 lg:gap-10 mr-4 lg:mr-12 
       "
       >
-        <BsCart4 size={25}></BsCart4>
+        <Link to={'/cart'}><BsCart4 size={25}></BsCart4></Link>
         {user ? (
           <>
             {user.photoURL ? (

@@ -1,45 +1,50 @@
-import { GrTrophy } from "react-icons/gr";
+import { GrTrophy, GrUserExpert } from "react-icons/gr";
 import { RiCustomerService2Line } from "react-icons/ri";
 import { MdLocalShipping } from "react-icons/md";
 import { ImCheckmark } from "react-icons/im";
-import { GrUserExpert } from "react-icons/gr";
+
+const supportItems = [
+  {
+    icon: <GrTrophy size={40} className="text-[#f75d34]" />,
+    title: "High Quality",
+    desc: "Premium build and engineering",
+  },
+  {
+    icon: <ImCheckmark size={40} className="text-[#f75d34]" />,
+    title: "Extended Warranty",
+    desc: "Up to 5-year warranty on select cars",
+  },
+  {
+    icon: <GrUserExpert size={40} className="text-[#f75d34]" />,
+    title: "Expert Guidance",
+    desc: "Get personalized car advice",
+  },
+  {
+    icon: <RiCustomerService2Line size={40} className="text-[#f75d34]" />,
+    title: "24/7 Support",
+    desc: "We're always here to help you",
+  },
+];
 
 const CustomerSupport = () => {
   return (
-    <div className="min-h-[270px] bg-[#f75d34]/10 my-10 flex  justify-center  gap-8 p-10  flex-col md:flex-row md:justify-around">
-      {/* Div 1 */}
-      <div className="flex items-center gap-4">
-        <GrTrophy size={65}></GrTrophy>
-        <div>
-          <h2 className="text-[#242424] font-semibold text-2xl">High Quality</h2>
-          <p className="text-[#898989] font-medium">Premium build and engineering</p>
+    <section className="py-16 my-16">
+      <div className="max-w-7xl mx-auto px-4 text-center">
+        <h2 className="text-3xl font-bold text-gray-800 mb-12">Why Shop with CarZilla?</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {supportItems.map((item, index) => (
+            <div
+              key={index}
+              className="flex flex-col items-center bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition duration-300"
+            >
+              <div className="mb-4">{item.icon}</div>
+              <h3 className="text-xl font-semibold text-gray-800 mb-2">{item.title}</h3>
+              <p className="text-gray-500 text-sm">{item.desc}</p>
+            </div>
+          ))}
         </div>
       </div>
-      {/* Div 2 */}
-      <div className="flex items-center gap-4">
-        <ImCheckmark size={65}></ImCheckmark>
-        <div>
-          <h2 className="text-[#242424] font-semibold text-2xl">Extended Warranty</h2>
-          <p className="text-[#898989] font-medium">Up to 5-year warranty</p>
-        </div>
-      </div>
-      {/* Div 3 */}
-      <div className="flex items-center gap-4">
-        <GrUserExpert size={65}></GrUserExpert>
-        <div>
-          <h2 className="text-[#242424] font-semibold text-2xl">Expert Guidance</h2>
-          <p className="text-[#898989] font-medium">Personalized car advice.</p>
-        </div>
-      </div>
-      {/* Div 4 */}
-      <div className="flex items-center gap-4">
-        <RiCustomerService2Line size={65}></RiCustomerService2Line>
-        <div>
-          <h2 className="text-[#242424] font-semibold text-2xl">24/7 Support</h2>
-          <p className="text-[#898989] font-medium">Support anytime</p>
-        </div>
-      </div>
-    </div>
+    </section>
   );
 };
 

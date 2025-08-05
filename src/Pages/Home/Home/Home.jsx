@@ -1,7 +1,9 @@
 import SectionTitle from "../../../Components/SectionTitle/SectionTitle";
 import Banner from "../Banner/Banner";
 import Category from "../Category/Category";
+import CustomerReview from "../CustomerReview/CustomerReview";
 import OurProducts from "../OurProducts/OurProducts";
+import TrustSection from "../Trust/TrustSection";
 
 const Home = () => {
   return <div>
@@ -13,6 +15,8 @@ const Home = () => {
       <Category></Category>
       <SectionTitle title='Our Products'></SectionTitle>
       <OurProducts></OurProducts>
+      <TrustSection></TrustSection>
+      <CustomerReview></CustomerReview>
     </div>
   </div>;
 };

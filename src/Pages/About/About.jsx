@@ -10,9 +10,7 @@ const About = () => {
             <div className="max-w-7xl mx-auto">
                 {/* Top Title */}
                 <div className="text-center mb-16">
-                    <h2 className="text-5xl font-bold mb-4 text-[#f75d34]">
-                        About CarZilla
-                    </h2>
+                    
                     <p className="text-lg text-gray-600 max-w-2xl mx-auto">
                         At CarZilla, we redefine the car buying experience with innovation, integrity, and passion.
                     </p>

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import banner from "../../../assets/logo/banner.jpg";
 const Banner = () => {
   return (
@@ -15,7 +16,7 @@ const Banner = () => {
         <p className="mb-5 font-medium text-white ">
           Discover a carefully curated collection of modern vehicles, designed to blend performance, style, and innovation. Each model reflects precision engineering, sleek aesthetics, and lasting reliability—perfect for elevating every drive.
         </p>
-        <button className="btn btn-outline text-[#f75d34]">Buy Now</button>
+        <Link to={'/shop'} ><button  className="btn btn-outline text-[#f75d34]">Buy Now</button></Link>
       </div>
     </div>
   );

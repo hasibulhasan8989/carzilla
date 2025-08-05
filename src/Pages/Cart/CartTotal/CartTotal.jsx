@@ -20,9 +20,7 @@ const CartTotal = ({sum}) => {
         </div>
       </div>
 
-      <Link to={'/checkout'}><button className="mt-10 border cursor-pointer border-black rounded-lg py-2 font-medium hover:bg-black hover:text-white transition">
-        Check Out
-      </button></Link>
+      <Link to={'/checkout'} className='mt-10 border text-center cursor-pointer border-black rounded-lg py-2 font-medium hover:bg-black hover:text-white transition'>Check Out </Link>
     </div>
     );
 };

@@ -1,18 +1,14 @@
+import { MdDelete } from "react-icons/md";
 
+const CartRow = ({ item, handleQuantities, quantity, handleDelete }) => {
+  const subtotal = quantity * item.price;
 
-
-const CartRow = ({ item,handleQuantities,quantity }) => {
-
-  
-   const subtotal=quantity * item.price
-
-    const handleInput =(e)=>{
-        const value=Number(e.target.value)
-        if(value>=1 && value < 6){
-          handleQuantities(item._id,value)  
-        }
+  const handleInput = (e) => {
+    const value = Number(e.target.value);
+    if (value >= 1 && value < 6) {
+      handleQuantities(item._id, value);
     }
-  
+  };
 
   return (
     <tr>
@@ -37,7 +33,7 @@ const CartRow = ({ item,handleQuantities,quantity }) => {
         <input
           onChange={handleInput}
           className="border w-[32px] h-[32px] bg-gray-100 font-semi-bold text-center rounded-lg"
-           value={quantity}
+          value={quantity}
           type="number"
           name=""
           id=""
@@ -46,6 +42,14 @@ const CartRow = ({ item,handleQuantities,quantity }) => {
       {/* Subtotal */}
       <td>
         <button className="btn btn-ghost btn-xs">{subtotal}</button>
+      </td>
+      <td>
+        <button
+          onClick={() => handleDelete(item._id)}
+          className="cursor-pointer"
+        >
+          <MdDelete size={25} color="#E43636"></MdDelete>{" "}
+        </button>
       </td>
     </tr>
   );

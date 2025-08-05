@@ -1,14 +1,16 @@
 import { CiHeart } from "react-icons/ci";
-import { FaShoppingCart } from "react-icons/fa";
+import { FaCarSide, FaShoppingCart } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
 import { BsCart4 } from "react-icons/bs";
 import { Link, NavLink } from "react-router-dom";
-import logo from "../../assets/logo/logo-removebg-preview.png";
+
 import useAuth from "../../Hooks/useAuth";
+import useCart from "../../Hooks/useCart";
 
 const Navbar = () => {
   const { user, signOutUser } = useAuth();
-  
+  const { cartItems } = useCart();
+
   const list = (
     <>
       <li>
@@ -26,7 +28,7 @@ const Navbar = () => {
       </li>
     </>
   );
-  
+
   return (
     <div className="navbar bg-base-100 shadow-sm">
       <div className="navbar-start">
@@ -55,10 +57,13 @@ const Navbar = () => {
             {list}
           </ul>
         </div>
-        <div className="flex gap-1 items-center">
-          <img className="w-12" src={logo} alt="" />
-          <Link to={"/"} className="font-bold text-3xl ">
-            CarZilla
+        <div className="flex items-center gap-2">
+          <FaCarSide className="text-[#f75d34]" size={28} />
+          <Link
+            to="/"
+            className="text-3xl font-extrabold tracking-wide text-gray-800 hover:text-[#f75d34] transition"
+          >
+            Car<span className="text-[#f75d34]">Zilla</span>
           </Link>
         </div>
       </div>
@@ -71,7 +76,16 @@ const Navbar = () => {
         className="navbar-end gap-6 lg:gap-10 mr-4 lg:mr-12 
       "
       >
-        <Link to={'/cart'}><BsCart4 size={25}></BsCart4></Link>
+        <Link className="relative" to={"/cart"}>
+          {" "}
+          <span
+            className="absolute px-2.5
+        rounded-full bottom-3 left-4 bg-red-500 text-white   "
+          >
+            {cartItems.length}
+          </span>{" "}
+          <BsCart4 size={25}></BsCart4>
+        </Link>
         {user ? (
           <>
             {user.photoURL ? (
@@ -84,7 +98,10 @@ const Navbar = () => {
             ) : (
               <CgProfile size={25} />
             )}
-            <button   onClick={() => signOutUser()} className="font-bold cursor-pointer">
+            <button
+              onClick={() => signOutUser()}
+              className="font-bold cursor-pointer"
+            >
               Logout
             </button>
           </>

@@ -10,7 +10,7 @@ import useCart from "../../Hooks/useCart";
 
 const Checkout = () => {
   const [paymentMethod, setPaymentMethod] = useState("cod");
-  const { orderItem, total } = useCartContext();
+  const { orderItem, total,setQuantities } = useCartContext();
   const {refetch}=useCart()
   const [hidden,setHidden]=useState(false)
   const { user } = useAuth();
@@ -50,6 +50,7 @@ const Checkout = () => {
       });
       setHidden(true)
       refetch()
+      setQuantities({})
       
       
 

@@ -39,7 +39,8 @@ const {cartItems}=useCart()
     quantities,
     handleQuantities,
     total,
-    orderItem
+    orderItem,
+    setQuantities,
   };
   return (
     <CartContext.Provider value={cartInfo}>{children}</CartContext.Provider>

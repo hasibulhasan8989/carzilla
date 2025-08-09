@@ -9,6 +9,10 @@ import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
 import Cart from "../Pages/Cart/Cart/Cart";
 import Checkout from "../Pages/Checkout/Checkout";
+import DashBoardLayout from "../Layouts/DashBoardLayout";
+import AddCar from "../Pages/DashBoard/AddCar/AddCar";
+import MangeCar from "../Pages/DashBoard/ManageCar/MangeCar";
+import ManageBooking from "../Pages/DashBoard/ManageBooking/ManageBooking";
 
 const router=createBrowserRouter([
     {
@@ -54,6 +58,26 @@ const router=createBrowserRouter([
 
         ]
     
+    },
+    {
+      path:'/dashboard',
+      element:<DashBoardLayout></DashBoardLayout>,
+      children:[
+        {
+            path:'add-car',
+            element:<AddCar></AddCar>
+        },
+        {
+            path:'manage-cars',
+            element:<MangeCar></MangeCar>
+        },
+        {
+            path:'manage-bookings',
+            element:<ManageBooking></ManageBooking>
+        },
+
+      ]
+       
     }
 ])
 

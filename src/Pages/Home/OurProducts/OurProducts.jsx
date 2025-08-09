@@ -3,11 +3,16 @@ import ProductCard from '../../../Components/ProductCard/ProductCard';
 import Button from '../../../Components/Button/Button';
 import { Link } from 'react-router-dom';
 import GetCar from '../../../Components/GetCar';
+import Loading from '../../Loading/Loading';
 
 
 const OurProducts = () => {
     
-    const {products}=GetCar()
+    const {products,isLoading}=GetCar()
+
+    if(isLoading){
+        return <Loading></Loading>
+    }
     
     return (
         <div>

@@ -1,18 +1,48 @@
 import { FaGoogle } from "react-icons/fa";
 import loginImage from "../../assets/logo/login.jpg";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const { login, googleLogin } = useAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
   
+
   const handleGoogle = async () => {
     try {
       await googleLogin();
+      if (location.state) {
+        navigate(location.state);
+      } else {
+        navigate("/");
+      }
     } catch (error) {
       console.log(error);
     }
   };
+
+  const handleEmailPassLogin = async (e) => {
+    e.preventDefault();
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    console.log(email, password);
+    try {
+      await login(email, password);
+      toast.success("Login Successful");
+      if(location.state){
+        navigate(location.state)
+      }
+      else{
+        navigate('/')
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Something Went Wrong");
+    }
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-100 via-white to-orange-200 text-gray-900">
       <div className="max-w-5xl w-full bg-white shadow-2xl rounded-xl flex flex-col lg:flex-row overflow-hidden transition-all duration-500">
@@ -32,7 +62,7 @@ const Login = () => {
           {/* Google Sign-In */}
           <button
             onClick={handleGoogle}
-            className="mt-6 w-full flex items-center justify-center gap-3 bg-white border border-gray-300 rounded-lg px-6 py-3 text-gray-700 hover:shadow-lg transition"
+            className="mt-6 w-full flex items-center cursor-pointer justify-center gap-3 bg-white border border-gray-300 rounded-lg px-6 py-3 text-gray-700 hover:shadow-lg transition"
           >
             <FaGoogle></FaGoogle>
             <span>Sign in with Google</span>
@@ -46,14 +76,16 @@ const Login = () => {
           </div>
 
           {/* Email/Password Form */}
-          <form className="space-y-5">
+          <form onSubmit={handleEmailPassLogin} className="space-y-5">
             <input
               type="email"
+              name="email"
               placeholder="Email"
               className="w-full px-5 py-3 border border-gray-200 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#f75d34] transition"
             />
             <input
               type="password"
+              name="password"
               placeholder="Password"
               className="w-full px-5 py-3 border border-gray-200 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#f75d34] transition"
             />
@@ -66,7 +98,11 @@ const Login = () => {
           </form>
           <p className="text-center mt-1">
             Don't Have Account :{" "}
-            <Link to={"/register"} className="underline text-[#f75d34]">
+            <Link
+              state={location.state}
+              to={"/register"}
+              className="underline text-[#f75d34]"
+            >
               Register
             </Link>
           </p>

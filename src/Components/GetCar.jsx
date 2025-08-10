@@ -6,7 +6,7 @@ const GetCar = () => {
 
     const axiosPublic=useAxiosPublic()
   
-  const  {data:products=[],isLoading}=useQuery({
+  const  {data:products=[],isLoading,refetch}=useQuery({
         queryKey:[],
         queryFn:async()=>{
            const {data}=await axiosPublic.get('/products')
@@ -17,7 +17,7 @@ const GetCar = () => {
  
 
 
-    return {products,isLoading}
+    return {products,isLoading,refetch}
 };
 
 export default GetCar;

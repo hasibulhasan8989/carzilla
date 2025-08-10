@@ -3,13 +3,17 @@ import { FaCarSide, FaShoppingCart } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
 import { BsCart4 } from "react-icons/bs";
 import { Link, NavLink } from "react-router-dom";
+import { GiSteeringWheel } from "react-icons/gi";
+
 
 import useAuth from "../../Hooks/useAuth";
 import useCart from "../../Hooks/useCart";
+import GetBooking from "../../Hooks/getBooking";
 
 const Navbar = () => {
   const { user, signOutUser } = useAuth();
   const { cartItems } = useCart();
+   const {bookings,refetch}=GetBooking()
 
   const list = (
     <>
@@ -88,6 +92,16 @@ const Navbar = () => {
             {cartItems.length}
           </span>{" "}
           <BsCart4 size={25}></BsCart4>
+        </Link>
+        <Link className="relative" to={"/testDrive"}>
+          {" "}
+          <span
+            className="absolute px-2.5
+        rounded-full bottom-3 left-4 bg-secondary/80 text-white   "
+          >
+            {bookings.length || 0}
+          </span>{" "}
+          <GiSteeringWheel size={30}></GiSteeringWheel>
         </Link>
         {user ? (
           <>

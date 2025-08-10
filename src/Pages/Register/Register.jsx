@@ -1,10 +1,13 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
+import toast from "react-hot-toast";
 
 const Register = () => {
   const [passError, setPassError] = useState("");
-  const { updateUser, signUp ,setUser,user } = useAuth();
+  const { updateUser, signUp, setUser, user } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -35,8 +38,15 @@ const Register = () => {
 
       setPassError("");
       form.reset();
+      toast.success("Registration Successful");
+      if (location.state) {
+        navigate(location.state);
+      } else {
+        navigate("/");
+      }
     } catch (error) {
       console.log(error);
+      toast.error("Registration Unsuccessful")
     }
 
     setPassError("");
@@ -97,7 +107,7 @@ const Register = () => {
 
           <p className="text-center mt-4 text-sm">
             Already have an account?{" "}
-            <Link to="/login" className="text-[#f75d34] underline font-medium">
+            <Link to="/login"  className="text-[#f75d34] underline font-medium">
               Login
             </Link>
           </p>

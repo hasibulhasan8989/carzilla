@@ -1,91 +1,100 @@
 import React from "react";
-import SectionHeader from "../../../Components/SectionHeader";
-import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import SectionHeader from "../../../Components/SectionHeader";
+import { useNavigate, useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 
-const AddCar = () => {
+const UpdateCar = () => {
   const axiosSecure = useAxiosSecure();
+  const axiosPublic = useAxiosPublic();
+  const navigate = useNavigate();
+  const { id } = useParams();
+  console.log(id);
 
-  const handleAddCar = async (e) => {
+  const { data: product = {}, refetch } = useQuery({
+    queryKey: ["product", id],
+    queryFn: async () => {
+      const { data } = await axiosPublic.get(`/products/${id}`);
+      return data;
+    },
+  });
+
+  console.log(product);
+
+  const handleUpdateCar = async (e) => {
     e.preventDefault();
     const form = e.target;
-    const brand = form.brand.value;
-    const category = form.category.value;
-    const name = form.name.value;
-    const transmission = form.transmission.value;
-    const fuelType = form.fuelType.value;
-    const rating = parseFloat(form.rating.value)
-    const stock = parseInt(form.stock.value)
-    const warranty = form.warranty.value;
-    const description = form.description.value;
-    let allFeatures = form.features.value;
-    const image = form.image.value;
-    const features = allFeatures.split(",");
-    const price = parseFloat(form.price.value)
-    const deliveryTime = form.deliveryTime.value;
-
-    const newCar = {
-      brand,
-      category,
-      name,
-      transmission,
-      fuelType,
-      rating,
-      stock,
-      price,
-      deliveryTime,
-      warranty,
-      description,
-      image,
-      features,
+    const updatedCar = {
+      brand: form.brand.value,
+      category: form.category.value,
+      name: form.name.value,
+      transmission: form.transmission.value,
+      fuelType: form.fuelType.value,
+      rating: parseFloat(form.rating.value),
+      stock: parseInt(form.stock.value),
+      price: parseFloat(form.price.value),
+      deliveryTime: form.deliveryTime.value,
+      warranty: form.warranty.value,
+      description: form.description.value,
+      image: form.image.value,
+      features: form.features.value.split(","),
     };
 
-    const { data } = await axiosSecure.post("/products", newCar);
-    if (data.insertedId) {
+    console.log(updatedCar);
+
+    const { data } = await axiosSecure.put(`/products/${id}`, updatedCar);
+    if (data.modifiedCount > 0) {
+      navigate(-1);
+      refetch();
       Swal.fire({
         icon: "success",
-        title: "Car Added Successfully!",
-        text: "Your new car listing has been posted.",
+        title: "Car Updated Successfully!",
+        text: "The car details have been updated in the system.",
         showConfirmButton: false,
         timer: 1500,
       });
-      form.reset()
     }
   };
+
   return (
     <div>
-      <SectionHeader tag={"Add Cars"} title={"Add a Car"}></SectionHeader>
+      <SectionHeader tag={"Update 🚗"} title={"Update Car Details"} />
       <div className="min-h-screen flex items-center justify-center p-4">
         <form
           className="w-full max-w-3xl bg-white shadow-2xl rounded-2xl p-8 space-y-6 border border-gray-200"
-          onSubmit={handleAddCar} // prevent reload on submit
+          onSubmit={handleUpdateCar}
         >
           {/* Title */}
           <h2 className="text-3xl font-extrabold text-center text-[#f75d34] drop-shadow-md">
-            Add a New Car Listing
+            Update Car
           </h2>
           <p className="text-center text-gray-500 mb-6">
-            Fill in the details below to add a new car to the collection.
+            Modify the details below and save your changes.
           </p>
 
           {/* Form Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <input
               type="text"
+              defaultValue={product.brand}
               name="brand"
-              placeholder="Brand (e.g., Toyota)"
+              placeholder="Brand"
               className="p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f75d34]"
               required
             />
             <input
               type="text"
+              defaultValue={product.category}
               name="category"
-              placeholder="Category (e.g., SUV)"
+              placeholder="Category"
               className="p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f75d34]"
               required
             />
             <input
               type="text"
+              defaultValue={product.name}
               name="name"
               placeholder="Model Name"
               className="p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f75d34]"
@@ -93,6 +102,7 @@ const AddCar = () => {
             />
             <input
               type="number"
+              defaultValue={product.price}
               name="price"
               placeholder="Price ($)"
               className="p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f75d34]"
@@ -100,6 +110,7 @@ const AddCar = () => {
             />
             <input
               type="text"
+              defaultValue={product.transmission}
               name="transmission"
               placeholder="Transmission"
               className="p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f75d34]"
@@ -107,6 +118,7 @@ const AddCar = () => {
             />
             <input
               type="text"
+              defaultValue={product.fuelType}
               name="fuelType"
               placeholder="Fuel Type"
               className="p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f75d34]"
@@ -114,6 +126,7 @@ const AddCar = () => {
             />
             <input
               type="number"
+              defaultValue={product.rating}
               step="0.1"
               name="rating"
               placeholder="Rating (1-5)"
@@ -121,26 +134,30 @@ const AddCar = () => {
             />
             <input
               type="number"
+              defaultValue={product.stock}
               name="stock"
               placeholder="Stock Quantity"
               className="p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f75d34]"
             />
             <input
               type="text"
+              defaultValue={product.warranty}
               name="warranty"
-              placeholder="Warranty (e.g., 3 years / 36,000 miles)"
+              placeholder="Warranty"
               className="p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f75d34]"
             />
             <input
               type="text"
+              defaultValue={product.deliveryTime}
               name="deliveryTime"
-              placeholder="Delivery Time (e.g., 2-4 weeks)"
+              placeholder="Delivery Time"
               className="p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f75d34]"
             />
           </div>
 
           {/* Description */}
           <textarea
+            defaultValue={product.description}
             name="description"
             placeholder="Car Description"
             className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f75d34]"
@@ -150,6 +167,7 @@ const AddCar = () => {
           {/* Features */}
           <input
             type="text"
+            defaultValue={product.features}
             name="features"
             placeholder="Features (comma separated)"
             className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f75d34]"
@@ -158,6 +176,7 @@ const AddCar = () => {
           {/* Image URL */}
           <input
             type="url"
+            defaultValue={product.image}
             name="image"
             placeholder="Image URL"
             className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f75d34]"
@@ -167,9 +186,9 @@ const AddCar = () => {
           {/* Submit */}
           <button
             type="submit"
-            className="w-full py-3 text-lg font-bold text-white bg-[#f75d34] rounded-lg hover:bg-[#cc4a2b] focus:outline-none focus:ring-2 focus:ring-[#f75d34] shadow-md transform hover:scale-105 transition duration-300"
+            className="w-full py-3 text-lg font-bold text-white bg-[#f75d34] focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-md transform hover:scale-105 transition duration-300"
           >
-            Add Car 🚀
+            Save Changes
           </button>
         </form>
       </div>
@@ -177,4 +196,4 @@ const AddCar = () => {
   );
 };
 
-export default AddCar;
+export default UpdateCar;

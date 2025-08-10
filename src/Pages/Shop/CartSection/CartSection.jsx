@@ -120,6 +120,7 @@ const CartSection = ({ id }) => {
     const driveBooking = {
       productName,
       name,
+      status:'pending',
       phone,
       productId,
       email,

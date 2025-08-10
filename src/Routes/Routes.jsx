@@ -13,72 +13,90 @@ import DashBoardLayout from "../Layouts/DashBoardLayout";
 import AddCar from "../Pages/DashBoard/AddCar/AddCar";
 import MangeCar from "../Pages/DashBoard/ManageCar/MangeCar";
 import ManageBooking from "../Pages/DashBoard/ManageBooking/ManageBooking";
+import ProtectedRoute from "./ProtectedRoute";
+import UpdateCar from "../Pages/DashBoard/UpdateCar/UpdateCar";
+import AdminStats from "../Pages/DashBoard/AdminStatus/AdminStatus";
+import TestDrive from "../Pages/TestDrive/TestDrive";
 
-const router=createBrowserRouter([
-    {
-        path:'/',
-        element:<MainLayout></MainLayout>,
-        children:[
-            {
-                path:'/',
-                element:<Home></Home>
-            },
-            {
-                path:'/shop',
-                element:<Shop></Shop>
-            },
-            {
-                path:'/details/:category/:id',
-                element:<ViewDetails></ViewDetails>
-            },
-            {
-                path:'/contact',
-                element:<Contact></Contact>
-            },
-            {
-                path:'/about',
-                element:<About></About>
-            },
-            {
-                path:'/login',
-                element:<Login></Login>
-            },
-            {
-                path:'/register',
-                element:<Register></Register>
-            },
-            {
-                path:'/cart',
-                element:<Cart></Cart>
-            },
-            {
-                path:'/checkout',
-                element:<Checkout></Checkout>
-            },
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <MainLayout></MainLayout>,
+    children: [
+      {
+        path: "/",
+        element: <Home></Home>,
+      },
+      {
+        path: "/shop",
+        element: <Shop></Shop>,
+      },
+      {
+        path: "/details/:category/:id",
+        element: <ViewDetails></ViewDetails>,
+      },
+      {
+        path: "/contact",
+        element: <Contact></Contact>,
+      },
+      {
+        path: "/about",
+        element: <About></About>,
+      },
+      {
+        path: "/login",
+        element: <Login></Login>,
+      },
+      {
+        path: "/register",
+        element: <Register></Register>,
+      },
+      {
+        path: "/cart",
+        element: <Cart></Cart>,
+      },
+      {
+        path: "/testDrive",
+        element: <TestDrive></TestDrive>,
+      },
+      {
+        path: "/checkout",
+        element: <Checkout></Checkout>,
+      },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: (
+      <ProtectedRoute>
+        <DashBoardLayout></DashBoardLayout>
+      </ProtectedRoute>
+    ),
+    children: [
 
-        ]
-    
-    },
-    {
-      path:'/dashboard',
-      element:<DashBoardLayout></DashBoardLayout>,
-      children:[
-        {
-            path:'add-car',
-            element:<AddCar></AddCar>
-        },
-        {
-            path:'manage-cars',
-            element:<MangeCar></MangeCar>
-        },
-        {
-            path:'manage-bookings',
-            element:<ManageBooking></ManageBooking>
-        },
+        
+      {
+        path: "/dashboard",
+        element: <AdminStats></AdminStats>
+      },
+      {
+        path: "add-car",
+        element: <AddCar></AddCar>,
+      },
+      {
+        path: "manage-cars",
+        element: <MangeCar></MangeCar>,
+      },
+      {
+        path: "manage-bookings",
+        element: <ManageBooking></ManageBooking>,
+      },
+      {
+        path: "update-car/:id",
+        element: <UpdateCar></UpdateCar>,
+      },
+    ],
+  },
+]);
 
-      ]
-       
-    }
-])
-
-export default router
+export default router;

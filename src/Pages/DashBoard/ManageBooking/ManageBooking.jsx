@@ -3,12 +3,13 @@ import SectionHeader from "../../../Components/SectionHeader";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { FaUser } from "react-icons/fa";
+import Loading from "../../Loading/Loading";
 
 const ManageBooking = () => {
 
     const axiosSecure=useAxiosSecure()
 
-    const {data:orders=[],refetch}=useQuery({
+    const {data:orders=[],refetch ,isLoading}=useQuery({
         queryKey:['Order'],
         queryFn:async()=>{
          const {data}= await axiosSecure.get('/testDrive')
@@ -26,7 +27,8 @@ const ManageBooking = () => {
     <div>
       <SectionHeader tag={"Booking"} title={"Manage Bookings"}></SectionHeader>
 
-      <div className="overflow-x-auto shadow-lg rounded-lg border border-gray-200">
+      {
+        isLoading?<Loading></Loading>:<div className="overflow-x-auto shadow-lg rounded-lg border border-gray-200">
         <table className="table table-zebra w-full">
           {/* Table Head */}
           <thead className="bg-gradient-to-r from-orange-400 to-[#e14e2a] text-white">
@@ -104,6 +106,7 @@ const ManageBooking = () => {
           </tbody>
         </table>
       </div>
+      }
     </div>
   );
 };

@@ -2,10 +2,11 @@ import { useQuery } from "@tanstack/react-query";
 import SectionHeader from "../../../Components/SectionHeader";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import Loading from "../../Loading/Loading";
 
 const ManageUser = () => {
   const axiosSecure = useAxiosSecure();
-  const { data: users = [] } = useQuery({
+  const { data: users = [],isLoading } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
       const { data } = await axiosSecure.get("/user");
@@ -34,8 +35,8 @@ const ManageUser = () => {
     <div>
       <SectionHeader tag={"All User"} title={"Manage All User"}></SectionHeader>
       
-
-      <div className="overflow-x-auto shadow-lg rounded-lg border border-gray-200">
+{
+    isLoading? <Loading></Loading>:<div className="overflow-x-auto shadow-lg rounded-lg border border-gray-200">
         <table className="table-auto w-full min-w-[600px] bg-white">
           <thead className="bg-gradient-to-r from-orange-400 to-[#e14e2a] text-white">
             <tr>
@@ -73,6 +74,8 @@ const ManageUser = () => {
           </tbody>
         </table>
       </div>
+}
+      
     </div>
   );
 };

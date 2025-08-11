@@ -2,27 +2,30 @@ import React from "react";
 import SectionHeader from "../../../Components/SectionHeader";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
+import Loading from "../../Loading/Loading";
 
 const ManageOrder = () => {
   const axiosSecure = useAxiosSecure();
 
-  const { data: orders = []} = useQuery({
+  const { data: orders = [],isLoading} = useQuery({
     queryKey: ["carOrder"],
     queryFn: async () => {
       const { data } = await axiosSecure.get("/order");
       return data;
     },
   });
+  if(orders.length===0){
+    return  <p className="text-center text-gray-500 mt-10">No orders found.</p>
+  }
 
   return (
     <div className="space-y-12 px-4 md:px-0">
       <SectionHeader tag={"Orders"} title={"Manage Orders"} />
 
-      {orders.length === 0 && (
-        <p className="text-center text-gray-500 mt-10">No orders found.</p>
-      )}
+     
 
-      {orders.map(({ _id, buyerInfo, orderItem = [], total }) => (
+      {
+        isLoading? <Loading></Loading>:orders.map(({ _id, buyerInfo, orderItem = [], total }) => (
         <div
           key={_id}
           className="max-w-5xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200"
@@ -87,6 +90,9 @@ const ManageOrder = () => {
           </div>
         </div>
       ))}
+      
+
+      
     </div>
   );
 };

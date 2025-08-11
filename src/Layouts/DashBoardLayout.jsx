@@ -5,8 +5,10 @@ import DashBoardNav from "../Pages/DashBoard/DashBoardNav";
 const DashBoardLayout = () => {
     return (
         <div className="flex">
-           <DashBoardNav></DashBoardNav>
-           <div className="container mx-auto poppins">
+           <div className="">
+            <DashBoardNav></DashBoardNav>
+           </div>
+           <div className="container mx-auto px-4  poppins ">
             <Outlet></Outlet>
            </div>
         </div>

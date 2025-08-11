@@ -1,31 +1,43 @@
-import { FaCar, FaClock, FaDollarSign, FaCheckCircle, FaUsers } from "react-icons/fa";
+import {
+  FaCar,
+  FaClock,
+  FaDollarSign,
+  FaCheckCircle,
+  FaUsers,
+} from "react-icons/fa";
 import GetCar from "../../../Components/GetCar";
 import { useQuery } from "@tanstack/react-query";
 
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
 export default function AdminStats() {
+  const axiosSecure = useAxiosSecure();
+  const { products } = GetCar();
 
-    const axiosSecure=useAxiosSecure()
-    const {products}=GetCar()
+  const { data: totalRevenue = {} } = useQuery({
+    queryKey: ["total"],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get("/totalRevenue");
+      return data;
+    },
+  });
 
-    const {data:totalRevenue={} }=useQuery({
-        queryKey:['total'],
-        queryFn:async()=>{
-            const {data}=await axiosSecure.get('/totalRevenue')
-            return data
-        }
-    })
-
-    const {data:testDrive=[] }=useQuery({
-        queryKey:['testDrive'],
-        queryFn:async()=>{
-            const {data}=await axiosSecure.get('/testDrive')
-            return data
-        }
-    })
- 
-    console.log(totalRevenue)
+  const { data: testDrive = [] } = useQuery({
+    queryKey: ["testDrive"],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get("/testDrive");
+      return data;
+    },
+  });
+  const { data: users = [] } = useQuery({
+    queryKey: ["users"],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get("/user");
+      return data;
+    },
+  });
+  console.log(users);
+  console.log(totalRevenue);
 
   const stats = [
     {
@@ -54,7 +66,7 @@ export default function AdminStats() {
     },
     {
       title: "Total Users / Dealers",
-      value: "320",
+      value: users.length,
       icon: <FaUsers size={28} />,
       color: "from-purple-500 to-pink-500",
     },
@@ -67,9 +79,7 @@ export default function AdminStats() {
           key={index}
           className={`bg-gradient-to-r ${stat.color} text-white rounded-2xl shadow-lg p-5 flex items-center gap-4 transform hover:scale-105 transition-all duration-300`}
         >
-          <div className="bg-white/20 p-3 rounded-full">
-            {stat.icon}
-          </div>
+          <div className="bg-white/20 p-3 rounded-full">{stat.icon}</div>
           <div>
             <h2 className="text-2xl font-bold">{stat.value}</h2>
             <p className="text-sm opacity-90">{stat.title}</p>

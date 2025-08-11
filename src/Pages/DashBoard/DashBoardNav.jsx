@@ -1,4 +1,4 @@
-import { FaCarSide } from 'react-icons/fa';
+import { FaCarSide, FaList, FaUser } from 'react-icons/fa';
 import { Link, NavLink } from 'react-router-dom';
 
 const DashBoardNav = () => {
@@ -38,6 +38,14 @@ const DashBoardNav = () => {
           <span>📅</span>
           <span>Manage Bookings</span>
         </NavLink>
+        <NavLink to="/dashboard/manage-order" className={linkClasses}>
+          <span><FaList className='text-amber-600'></FaList></span>
+          <span>All Order</span>
+        </NavLink>
+        <NavLink to="/dashboard/manage-user" className={linkClasses}>
+          <span><FaUser className='text-amber-600'></FaUser></span>
+          <span>All User</span>
+        </NavLink>
         
       </nav>
 
@@ -51,9 +59,9 @@ const DashBoardNav = () => {
           <span>🏠</span>
           <span>Home</span>
         </NavLink>
-        <NavLink to="/car-menu" className={linkClasses}>
+        <NavLink to="/about" className={linkClasses}>
           <span>📋</span>
-          <span>Car Menu</span>
+          <span>About</span>
         </NavLink>
         <NavLink to="/shop" className={linkClasses}>
           <span>🛒</span>

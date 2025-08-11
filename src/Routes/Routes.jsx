@@ -17,6 +17,8 @@ import ProtectedRoute from "./ProtectedRoute";
 import UpdateCar from "../Pages/DashBoard/UpdateCar/UpdateCar";
 import AdminStats from "../Pages/DashBoard/AdminStatus/AdminStatus";
 import TestDrive from "../Pages/TestDrive/TestDrive";
+import ManageUser from "../Pages/DashBoard/ManageUser/ManageUser";
+import ManageOrder from "../Pages/DashBoard/ManageOrder/ManageOrder";
 
 const router = createBrowserRouter([
   {
@@ -94,6 +96,14 @@ const router = createBrowserRouter([
       {
         path: "update-car/:id",
         element: <UpdateCar></UpdateCar>,
+      },
+      {
+        path: "manage-user",
+        element:<ManageUser></ManageUser>,
+      },
+      {
+        path: "manage-order",
+        element:<ManageOrder></ManageOrder>,
       },
     ],
   },

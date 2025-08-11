@@ -10,8 +10,10 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../Firebase/firebase.config";
+import useAxiosPublic from "../Hooks/useAxiosPublic";
 
 const AuthProviders = ({ children }) => {
+  const axiosPublic=useAxiosPublic()
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -41,10 +43,18 @@ const AuthProviders = ({ children }) => {
   }
 
   useEffect (() => {
-    const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unSubscribe = onAuthStateChanged(auth,async (currentUser) => {
       console.log('Current User ->',  currentUser)
       setUser(currentUser);
       setLoading(false);
+      if(currentUser){
+        const email=currentUser.email
+        const role="user"
+        const name=currentUser.displayName || 'Anonymous'
+        const user={email,role,name}
+        const {data}=await axiosPublic.post('/user',user)
+        console.log(data)
+      }
     });
     return () => unSubscribe();
   }, []);

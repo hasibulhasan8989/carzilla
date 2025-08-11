@@ -5,10 +5,12 @@ import SectionHeader from "../../../Components/SectionHeader";
 import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+import useAuth from "../../../Hooks/useAuth";
 
 const UpdateCar = () => {
   const axiosSecure = useAxiosSecure();
   const axiosPublic = useAxiosPublic();
+  const { user } = useAuth();
   const navigate = useNavigate();
   const { id } = useParams();
   console.log(id);
@@ -44,7 +46,26 @@ const UpdateCar = () => {
 
     console.log(updatedCar);
 
-    const { data } = await axiosSecure.put(`/products/${id}`, updatedCar);
+    const { data } = await axiosSecure.put(
+      `/products/${id}?admin=${user?.email}`,
+      updatedCar
+    );
+
+    if (data.admin === false) {
+      Swal.fire({
+        title: "Access Denied",
+        text: "You do not have the necessary permissions to perform this action.",
+        icon: "error",
+        confirmButtonColor: "#f75d34",
+        confirmButtonText: "OK",
+        background: "#fff",
+        backdrop: `
+          rgba(0,0,0,0.4)
+          left top
+          no-repeat
+        `,
+      });
+    }
     if (data.modifiedCount > 0) {
       navigate(-1);
       refetch();

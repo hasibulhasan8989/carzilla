@@ -13,7 +13,7 @@ const Home = () => {
       <SectionTitle title='Pick Your Power' description='From bold SUVs to sleek sedans and electrifying EVs — find the perfect ride for your lifestyle.'></SectionTitle>
 
       <Category></Category>
-      <SectionTitle title='Our Products'></SectionTitle>
+      <SectionTitle title='Our Products' description={'Explore a wide range of premium vehicles carefully selected to suit every style and need. Find the perfect car that matches your lifestyle and drive with confidence. '}></SectionTitle>
       <OurProducts></OurProducts>
       <TrustSection></TrustSection>
       <CustomerReview></CustomerReview>

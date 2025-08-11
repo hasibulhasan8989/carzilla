@@ -3,11 +3,12 @@ import CartSection from "../Shop/CartSection/CartSection";
 import GetCar from "../../Components/GetCar";
 import ProductCard from "../../Components/ProductCard/ProductCard";
 import { useEffect } from "react";
+import Loading from "../Loading/Loading";
 
 const ViewDetails = () => {
   const { id, category } = useParams();
 
-  const { products } = GetCar();
+  const { products ,isLoading} = GetCar();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -16,6 +17,10 @@ const ViewDetails = () => {
   const relatedCar = products.filter(
     (car) => car?.category === category && car._id !== id
   );
+
+  if(isLoading){
+    return <Loading></Loading>
+  }
 
   return (
     <div className="container mx-auto px-4 mt-10 ">

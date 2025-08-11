@@ -16,7 +16,7 @@ const Shop = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const { data: productCount = 0 } = useQuery({
-    queryKey: ["productCount",search],
+    queryKey: ["productCount", search],
     queryFn: async () => {
       const { data } = await axiosPublic.get(`/productCount?search=${search}`);
       return data;
@@ -27,8 +27,8 @@ const Shop = () => {
   const numberOfPages = Math.ceil(productCount / limit);
   const pageArray = [...Array(numberOfPages)];
 
-  const { data: products = [],isLoading } = useQuery({
-    queryKey: ["products", currentPage,sort,search],
+  const { data: products = [], isLoading } = useQuery({
+    queryKey: ["products", currentPage, sort, search],
     queryFn: async () => {
       const { data } = await axiosPublic.get(
         `/allProducts?limit=${limit}&pageNo=${currentPage}&sort=${sort}&search=${search}`
@@ -49,8 +49,8 @@ const Shop = () => {
     setSort(e.target.value);
   };
   const handleSearch = (e) => {
-    setSearch(e.target.value)
-    setCurrentPage(1)
+    setSearch(e.target.value);
+    setCurrentPage(1);
   };
 
   return (
@@ -97,13 +97,15 @@ const Shop = () => {
 
       {/* sorting and search */}
 
-      {
-        isLoading ?<Loading></Loading>  : <div className="grid grid-cols-2 md:grid-cols-4 px-4 gap-4 container mx-auto">
-        {products.map((product) => (
-          <ProductCard key={product._id} product={product}></ProductCard>
-        ))}
-      </div>
-      }
+      {isLoading ? (
+        <Loading></Loading>
+      ) : (
+        <div className="grid grid-cols-2 md:grid-cols-4 px-4 gap-4 container mx-auto">
+          {products.map((product) => (
+            <ProductCard key={product._id} product={product}></ProductCard>
+          ))}
+        </div>
+      )}
 
       <div
         hidden={limit >= productCount}

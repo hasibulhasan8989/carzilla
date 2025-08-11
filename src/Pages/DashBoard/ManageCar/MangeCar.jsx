@@ -5,10 +5,12 @@ import Swal from "sweetalert2";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import Loading from "../../Loading/Loading";
 import { Link } from "react-router-dom";
+import useAuth from "../../../Hooks/useAuth";
 
 const MangeCar = () => {
-  const { products,refetch ,isLoading} = GetCar();
+  const { products, refetch, isLoading } = GetCar();
   const axiosSecure = useAxiosSecure();
+  const { user } = useAuth();
   const handleDelete = (id) => {
     console.log(id);
     Swal.fire({
@@ -21,15 +23,31 @@ const MangeCar = () => {
       confirmButtonText: "Yes, delete it!",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const { data } = await axiosSecure.delete(`/products/${id}`);
+        const { data } = await axiosSecure.delete(
+          `/products/${id}?admin=${user?.email}`
+        );
+        if (data.admin === false) {
+          Swal.fire({
+            title: "Access Denied",
+            text: "You do not have the necessary permissions to perform this action.",
+            icon: "error",
+            confirmButtonColor: "#f75d34",
+            confirmButtonText: "OK",
+            background: "#fff",
+            backdrop: `
+    rgba(0,0,0,0.4)
+    left top
+    no-repeat
+  `,
+          });
+        }
         if (data.deletedCount > 0) {
-
           Swal.fire({
             title: "Deleted!",
             text: "The car listing has been successfully removed.",
             icon: "success",
           });
-          refetch()
+          refetch();
         }
       }
     });
@@ -39,9 +57,7 @@ const MangeCar = () => {
     <div>
       <SectionHeader tag={"All Cars"} title={"Manage Cars"}></SectionHeader>
       <p className="text-4xl font-bold">TotalCar :{products.length} </p>
-      {
-        isLoading && <Loading></Loading>
-      }
+      {isLoading && <Loading></Loading>}
       <div className="">
         <div className="overflow-x-auto">
           <table className="table table-zebra">
@@ -59,7 +75,7 @@ const MangeCar = () => {
             <tbody>
               {/* Row Example */}
               {products.map((product, idx) => (
-                <tr>
+                <tr key={idx}>
                   <th>
                     <label>{idx + 1}</label>
                   </th>
@@ -69,7 +85,7 @@ const MangeCar = () => {
                     <div className="flex items-center gap-4">
                       <div className="avatar">
                         <div className="mask mask-squircle w-16 h-16 border border-gray-200 shadow-sm">
-                          <img src={product.image} alt="Car" />
+                          <img src={product?.image} alt="Car" />
                         </div>
                       </div>
                       <div>
@@ -97,7 +113,10 @@ const MangeCar = () => {
                   {/* Actions */}
                   <td>
                     <div className="flex gap-2">
-                      <Link to={`/dashboard/update-car/${product._id}`} className="btn btn-sm btn-warning">
+                      <Link
+                        to={`/dashboard/update-car/${product._id}`}
+                        className="btn btn-sm btn-warning"
+                      >
                         ✏️ Edit
                       </Link>
                       <button
